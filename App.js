@@ -1,302 +1,76 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Dimensions,
-  Button,
-  Alert,
-} from 'react-native';
-import React, {useState} from 'react';
-import auth from '@react-native-firebase/auth';
-import OTPTextView from 'react-native-otp-textinput';
-import {COLOR} from './Src/Components/Colors';
-const {height, width} = Dimensions.get('screen');
-const App = () => {
-  const [confirm, setConfirm] = useState(null);
-  const [phone, setPhone] = useState(0);
-  const [code, setCode] = useState('');
+// In App.js in a new project
 
-  // Handle the button press
-  async function signInWithPhoneNumber() {
-    const confirmation = await auth().signInWithPhoneNumber('+91' + phone);
-    setConfirm(confirmation);
-  }
+import * as React from 'react';
+import {useEffect, useState} from 'react';
+import {View, Text} from 'react-native';
+import {NavigationContainer, NavigationActions} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import 'react-native-gesture-handler';
+import Dashboard from './Src/Screens/Dashboard/Dashboard';
+import Userlogin from './Src/Screens/Login/Login';
+import Splash from './Src/Screens/Splash/Splash';
+import Profile from './Src/Screens/Login/Profile';
+import Welcome from './Src/Screens/welcome/welcome';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-  async function confirmCode() {
-    try {
-      const res = await confirm.confirm(code);
-      console.log('Code successfully Verified.', res.user.phoneNumber);
-      Alert.alert(
-        'Successfully signed in with phone number:',
-        res.user.phoneNumber,
-        res.user.displayName,
-      );
-    } catch (error) {
-      console.log('Invalid code.');
-    }
-  }
+const Drawer = createDrawerNavigator();
+const CustomDrawerContentComponent = props => {
   return (
-    <View>
-      {!confirm ? (
-        <SafeAreaView>
-          <View
-            style={{
-              backgroundColor: COLOR.BACKGROUND_COLOR,
-              height: height * 1,
-              width: width * 1,
-            }}>
-            <View
-              style={{
-                backgroundColor: COLOR.BACKGROUND_COLOR,
-                height: height * 1,
-                width: width * 0.9,
-                // borderWidth: 1,
-                alignSelf: 'center',
-                justifyContent: 'center',
-              }}>
-              <View
-                style={{
-                  height: height * 0.7,
-                  width: width * 0.9,
-                  borderRadius: 10,
-                  backgroundColor: COLOR.TEXTINPUT,
-                  // justifyContent: 'center',
-                  alignSelf: 'center',
-                }}>
-                <View
-                  style={{
-                    height: height * 0.13,
-                    width: width * 0.9,
-
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    source={require('./Src/Images/LOGO/LOGO.png')}
-                    style={{width: 300, height: height * 0.1}}
-                  />
-                </View>
-                <View style={{height: height * 0.12}}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      fontWeight: 'bold',
-                      fontSize: 30,
-                      color: COLOR.BTEXT,
-                    }}>
-                    LOGIN
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: COLOR.BACKGROUND_COLOR,
-                    height: height * 0.25,
-                    width: width * 0.75,
-                    borderBottomLeftRadius: 22,
-                    borderTopLeftRadius: 22,
-                    alignSelf: 'flex-end',
-                    justifyContent: 'center',
-                  }}>
-                  <View
-                    style={{
-                      backgroundColor: COLOR.BUTTON,
-                      height: height * 0.13,
-                      width: width * 0.75,
-                      justifyContent: 'center',
-                      // alignSelf: 'center',
-                      // alignItems: 'center',
-                    }}>
-                    <View>
-                      <View style={{height: 30}}>
-                        <Text
-                          style={{
-                            color: COLOR.BTEXT,
-                            fontWeight: '500',
-                            fontSize: 20,
-                          }}>
-                          Phone :
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          paddingHorizontal: 15,
-                          height: 40,
-                          borderTopLeftRadius: 10,
-                          borderBottomLeftRadius: 10,
-                          backgroundColor: 'white',
-                          justifyContent: 'center',
-                        }}>
-                        <TextInput
-                          placeholder="enter 10 digit phone number here"
-                          onChangeText={txt => setPhone(txt)}
-                          maxLength={10}
-                          style={{color: COLOR.BTEXT}}
-                          keyboardType="number-pad"
-                          placeholderTextColor={'grey'}></TextInput>
-                      </View>
-                    </View>
-                  </View>
-                  <TouchableOpacity onPress={() => signInWithPhoneNumber()}>
-                    <View
-                      style={{
-                        height: 40,
-                        width: width * 0.5,
-                        alignSelf: 'center',
-                        borderTopRightRadius: 10,
-                        borderBottomLeftRadius: 10,
-                        marginTop: 20,
-                        justifyContent: 'center',
-                        backgroundColor: COLOR.BUTTON,
-                      }}>
-                      <Text
-                        style={{
-                          textAlign: 'center',
-                          fontWeight: 'bold',
-                          fontSize: 20,
-                          color: COLOR.BTEXT,
-                        }}>
-                        Submit
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </View>
-        </SafeAreaView>
-      ) : (
-        <SafeAreaView>
-          <View
-            style={{
-              backgroundColor: COLOR.BACKGROUND_COLOR,
-              height: height * 1,
-              width: width * 1,
-            }}>
-            <View
-              style={{
-                backgroundColor: COLOR.BACKGROUND_COLOR,
-                height: height * 1,
-                width: width * 0.9,
-                // borderWidth: 1,
-                alignSelf: 'center',
-                justifyContent: 'center',
-              }}>
-              <View
-                style={{
-                  height: height * 0.7,
-                  width: width * 0.9,
-                  borderRadius: 10,
-                  backgroundColor: COLOR.TEXTINPUT,
-                  // justifyContent: 'center',
-                  alignSelf: 'center',
-                }}>
-                <View
-                  style={{
-                    height: height * 0.13,
-                    width: width * 0.9,
-
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    source={require('./Src/Images/LOGO/LOGO.png')}
-                    style={{width: 300, height: height * 0.1}}
-                  />
-                </View>
-                <View style={{height: height * 0.12}}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      fontWeight: 'bold',
-                      fontSize: 30,
-                      color: COLOR.BTEXT,
-                    }}>
-                    LOGIN
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: COLOR.BACKGROUND_COLOR,
-                    height: height * 0.25,
-                    width: width * 0.75,
-                    borderBottomLeftRadius: 22,
-                    borderTopLeftRadius: 22,
-                    alignSelf: 'flex-end',
-                    justifyContent: 'center',
-                  }}>
-                  <View
-                    style={{
-                      backgroundColor: COLOR.BUTTON,
-                      height: height * 0.13,
-                      width: width * 0.75,
-                      justifyContent: 'center',
-                      // alignSelf: 'center',
-                      // alignItems: 'center',
-                    }}>
-                    <View>
-                      <View style={{height: 30}}>
-                        <Text
-                          style={{
-                            color: COLOR.BTEXT,
-                            fontWeight: '500',
-                            fontSize: 20,
-                          }}>
-                          OTP :
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          paddingHorizontal: 15,
-                          height: 40,
-                          borderTopLeftRadius: 10,
-                          borderBottomLeftRadius: 10,
-                          backgroundColor: 'white',
-                          justifyContent: 'center',
-                        }}>
-                        <OTPTextView
-                          handleTextChange={text => setCode(text)}
-                          inputCount={6}
-                          keyboardType="numeric"
-                          style={{width: width * 0.1, color: COLOR.BTEXT}}
-                        />
-                      </View>
-                    </View>
-                  </View>
-                  <TouchableOpacity onPress={() => confirmCode()}>
-                    <View
-                      style={{
-                        height: 40,
-                        width: width * 0.5,
-                        alignSelf: 'center',
-                        borderTopRightRadius: 10,
-                        borderBottomLeftRadius: 10,
-                        marginTop: 20,
-                        justifyContent: 'center',
-                        backgroundColor: COLOR.BUTTON,
-                      }}>
-                      <Text
-                        style={{
-                          textAlign: 'center',
-                          fontWeight: 'bold',
-                          fontSize: 20,
-                          color: COLOR.BTEXT,
-                        }}>
-                        Submit
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </View>
-        </SafeAreaView>
-      )}
-    </View>
+    <ScrollView>
+      <SafeAreaView
+        style={{flex: 1}}
+        forceInset={{top: 'always', horizontal: 'never'}}>
+        <Text>Hello USER_NAME_FROM_PROPS?</Text>
+        <DrawerItems {...props} />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
-export default App;
+function MyDrawer() {
+  const [user, setUser] = useState('');
+  async function displayData() {
+    try {
+      let user = await AsyncStorage.getItem('user');
+      let parsed = JSON.parse(user);
+      setUser(parsed);
+    } catch (error) {
+      alert(error);
+    }
+  }
+  useEffect(() => {
+    // arun();
+    displayData();
+  }, []);
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: false,
+        drawerActiveTintColor: 'red',
+        drawerPosition: 'left',
+        drawerType: 'back',
+        headerLabel: 'Drawer Type',
+      }}>
+      <Drawer.Screen name="Home" component={Dashboard} />
+      <Drawer.Screen name="Profile" component={Profile} />
+    </Drawer.Navigator>
+  );
+}
+const Stack = createNativeStackNavigator();
 
-const styles = StyleSheet.create({});
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Login" component={Userlogin} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Drawer" component={MyDrawer} />
+        <Stack.Screen name="Welcome" component={Welcome} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;

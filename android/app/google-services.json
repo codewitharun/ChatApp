@@ -7,56 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:976426062660:android:8200654aa39721122a7d11",
+        "mobilesdk_app_id": "1:976426062660:android:cb4fbc8a5a2403ea2a7d11",
         "android_client_info": {
           "package_name": "com.mychat"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "976426062660-loauoq41siephjql0d9tiddbjtvhkfkr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCjlnvC15ywmefg4NICpBG6w7Cweo69Gd8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "976426062660-loauoq41siephjql0d9tiddbjtvhkfkr.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "976426062660-9ck0q8gl699spb489fqcjahtf5jssl4v.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "org.reactjs.native.example.MYCHAT"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:976426062660:android:5025bf9d11f2aac62a7d11",
-        "android_client_info": {
-          "package_name": "com.pchat"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "976426062660-jl23ec8pc1891f5dj57q2m10togbsu9k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.pchat",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
         {
           "client_id": "976426062660-loauoq41siephjql0d9tiddbjtvhkfkr.apps.googleusercontent.com",
           "client_type": 3
