@@ -1,0 +1,9 @@
+export const COLOR = {
+  BACKGROUND_COLOR: '#030303',
+  BUTTON: '#0317FC',
+  TABCARD: '#B6E2D3',
+  BTEXT: '#000',
+  TEXTINPUT: '#D8A7B1',
+
+  WTEXT: '#FFF',
+};
